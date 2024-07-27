@@ -1,4 +1,4 @@
-import Sortable from '../node_modules/sortablejs/modular/sortable.complete.esm.js';
+import Sortable from './node_modules/sortablejs/modular/sortable.complete.esm.js';
 let inputTareas = document.getElementById('inputTareas');
 let listaTareas = document.getElementById('listaTareas')
 let sfxAdd = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Add.mp3?raw=true");
@@ -8,7 +8,6 @@ let sfxClear = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Cle
 let isMuted = false;
 
 let el = document.getElementById('listaTareas');
-//let sortable = Sortable.create(el);
 
 let sortable = new Sortable(el, {
 	animation: 350,
