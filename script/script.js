@@ -1,15 +1,14 @@
 import Sortable from './node_modules/sortablejs/modular/sortable.complete.esm.js';
 let inputTareas = document.getElementById('inputTareas');
-let listaTareas = document.getElementById('listaTareas')
-let sfxAdd = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Add.mp3?raw=true");
-let sfxDel = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Substract.mp3?raw=true")
-let sfxComp = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Tick.mp3?raw=true")
-let sfxClear = new Audio("https://github.com/rd-varela/tpjava2/blob/main/sfx/Clear.mp3?raw=true")
+let listaTareas = document.getElementById('listaTareas');
+let UINotice = document.getElementById('userInputNotice');
+let sfxAdd = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Add.mp3?raw=true");
+let sfxDel = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Substract.mp3?raw=true")
+let sfxComp = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Tick.mp3?raw=true")
+let sfxClear = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Clear.mp3?raw=true")
 let isMuted = false;
 
-let el = document.getElementById('listaTareas');
-
-let sortable = new Sortable(el, {
+let sortable = new Sortable(listaTareas, {
 	animation: 350,
     easing: "cubic-bezier(0.34, 1.56, 0.64, 1)",
     swapThreshold: 1,
@@ -48,22 +47,58 @@ function playSound(audio) {
 
 cargarTareas();
 
-function agregarTarea(){
+inputTareas.addEventListener('input', function() {
+    let textLength = inputTareas.value.length;
+    if (textLength >= 3) {
+        UINotice.style.opacity = 1
+        UINotice.textContent = `${textLength}`;
+    } else {
+        UINotice.textContent = '';
+    }
+});
+
+function agregarTarea() {
     let textoTareas = inputTareas.value.trim();
-    if (textoTareas !== '') {
+    try {
+        if (textoTareas === '') {
+            throw new Error('la tarea no puede estar vacía!');
+        }
+
+        if (textoTareas.length > 34) {
+            throw new Error('maximo 34 caracteres!');
+        }
+
         let li = document.createElement('li');
         li.textContent = textoTareas;
         listaTareas.appendChild(li);
         inputTareas.value = '';
         playSound(sfxAdd);
+
         li.addEventListener('click', completarTarea);
         let deleteBtn = document.createElement('button');
         deleteBtn.textContent = '-';
-        deleteBtn.addEventListener('click', borrarTarea)
+        deleteBtn.addEventListener('click', borrarTarea);
         li.appendChild(deleteBtn);
+
+        UINotice.textContent = 'agregado!';
+        UINotice.style.opacity = 1;
+        fadeOutNotice();
+
         guardarTareas();
+    } catch (error) {
+        UINotice.textContent = error.message;
+        UINotice.style.opacity = 1;
+        fadeOutNotice();
     }
 }
+
+function fadeOutNotice() {
+    setTimeout(function() {
+        UINotice.style.opacity = 0;
+    }, 2500);
+}
+
+window.agregarTarea = agregarTarea
 
 inputTareas.addEventListener("keydown", function(event) {
     if (event.keyCode === 13) {
@@ -89,6 +124,8 @@ clearButton.addEventListener('click', function() {
     listaTareas.innerHTML = '';
     playSound(sfxClear);
     localStorage.removeItem('tareas');
+    UINotice.textContent = '';
+    inputTareas.value = '';
 });
 
 function guardarTareas(){

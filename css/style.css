@@ -38,6 +38,15 @@ body section {
 body section div p {
   font-size: 20px;
 }
+body section div button {
+  cursor: pointer;
+}
+body section div .subText {
+  font-size: 10px;
+  font-weight: lighter;
+  font-style: italic;
+  margin-top: 5px;
+}
 
 #listaTareas {
   list-style-type: square;
@@ -60,7 +69,6 @@ body section div p {
 
 #inputTareas {
   margin-top: 25px;
-  margin-bottom: 30px;
   width: 400px;
   height: 25px;
   background-color: rgba(255, 255, 255, 0);
@@ -97,10 +105,17 @@ button {
 #clearButton:active {
   padding: 3.5px 7.5px;
   font-size: 17.5px;
-  margin-bottom: 21.5px;
 }
 #clearButton:hover {
   cursor: pointer;
+}
+
+#userInputNotice {
+  font-size: 10px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  height: 12px;
+  transition: opacity 1s ease-out;
 }
 
 .darkModeBtnDefault {
@@ -171,11 +186,17 @@ button {
 .darkMode #muteBtn {
   color: #EDEADE;
 }
+.darkMode #userInputNotice {
+  color: #EDEADE;
+}
 
 @media only screen and (max-width: 600px) {
   body section {
     left: 5%;
     right: 5%;
+  }
+  body section div {
+    height: 110px;
   }
   #inputTareas {
     width: 250px;
@@ -194,6 +215,9 @@ button {
   }
   #listaTareas {
     margin-left: 15px;
+  }
+  #userInputNotice {
+    margin-top: 0px;
   }
 }
 @media only screen and (min-width: 601px) and (max-width: 1200px) {
