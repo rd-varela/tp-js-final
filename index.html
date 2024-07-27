@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASKS</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="muteBtn">&#9834</div>
+    <div id="darkMode" class="darkModeBtnDefault"></div>
+    <header>
+        <h1>Tasks.</h1>
+    </header>
+    <section>
+        <div>
+            <p>Organizate agregando, tildando o quitando tareas</p>
+            <input type="text" id="inputTareas" placeholder="Ingresa una tarea">
+            <button onclick="agregarTarea()">+</button>
+            <button id="clearButton">[clear<span> all</span>]</button>
+        </div>
+        <div>
+            <p>Lista de tareas:</p>
+            <ul id="listaTareas"></ul>
+        </div>
+
+    </section>
+
+    <script src="script/script.js" type="module"></script>
+
+</body>
+</html>

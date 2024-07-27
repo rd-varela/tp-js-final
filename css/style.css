@@ -1,0 +1,215 @@
+@font-face {
+  font-family: MonoBodyText;
+  src: url(../font/Harmonia.otf);
+}
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  font-family: MonoBodyText;
+  letter-spacing: 2px;
+  color: #131313;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+*:focus {
+  outline: none !important;
+}
+
+body {
+  background-color: #EDEADE;
+}
+body header {
+  margin: 40px 0px 15px 0px;
+}
+body header h1 {
+  font-size: 120px;
+  letter-spacing: 6px;
+  text-align: center;
+}
+body section {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 100px;
+  left: 25%;
+  right: 25%;
+}
+body section div p {
+  font-size: 20px;
+}
+
+#listaTareas {
+  list-style-type: square;
+  margin-top: 40px;
+}
+#listaTareas li {
+  padding: 12px 0px;
+  float: left;
+  clear: both;
+}
+#listaTareas :hover {
+  cursor: pointer;
+}
+#listaTareas :active {
+  cursor: grabbing !important;
+}
+#listaTareas .sortable-chosen {
+  cursor: grabbing !important;
+}
+
+#inputTareas {
+  margin-top: 25px;
+  margin-bottom: 30px;
+  width: 400px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  border-bottom: #131313 1px solid;
+}
+
+:focus {
+  outline: none;
+}
+
+.completado {
+  color: rgba(80, 80, 80, 0.523);
+  text-decoration: line-through;
+}
+
+button {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  font-weight: bolder;
+  font-size: 18px;
+  padding: 0px 8px;
+}
+
+#clearButton {
+  color: #EDEADE;
+  background-color: #131313;
+  padding: 4px 8px;
+  margin-left: 20px;
+}
+#clearButton span {
+  color: #EDEADE;
+}
+#clearButton:active {
+  padding: 3.5px 7.5px;
+  font-size: 17.5px;
+  margin-bottom: 21.5px;
+}
+#clearButton:hover {
+  cursor: pointer;
+}
+
+.darkModeBtnDefault {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: #131313;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.darkModeBtnDefault:hover {
+  cursor: pointer;
+}
+
+#muteBtn {
+  display: flex;
+  position: absolute;
+  top: 0px;
+  left: 15px;
+  font-size: 40px;
+  color: #131313;
+  font-family: "Segoe UI";
+}
+#muteBtn:hover {
+  cursor: pointer;
+}
+
+.muted {
+  color: #706e68 !important;
+  text-decoration: line-through;
+}
+
+.darkMode {
+  background-color: #131313;
+}
+.darkMode header h1 {
+  color: #EDEADE;
+}
+.darkMode section div p {
+  color: #EDEADE;
+}
+.darkMode section div input {
+  color: #EDEADE;
+}
+.darkMode section div ul li {
+  color: #edeade;
+}
+.darkMode section div button {
+  color: #EDEADE;
+}
+.darkMode section div #clearButton {
+  color: #131313;
+  background-color: #EDEADE;
+}
+.darkMode section div #clearButton span {
+  color: #131313;
+}
+.darkMode .darkModeBtnDefault {
+  background-color: #EDEADE !important;
+}
+.darkMode .completado {
+  color: #706e68;
+}
+.darkMode #inputTareas {
+  border-bottom: #EDEADE 1px solid;
+}
+.darkMode #muteBtn {
+  color: #EDEADE;
+}
+
+@media only screen and (max-width: 600px) {
+  body section {
+    left: 5%;
+    right: 5%;
+  }
+  #inputTareas {
+    width: 250px;
+  }
+  #clearButton {
+    color: #EDEADE;
+    background-color: #131313;
+    padding: 4px 8px;
+    margin-bottom: 20px;
+    margin-left: 5px;
+  }
+  #clearButton span {
+    display: inline-block;
+    visibility: hidden;
+    width: 0px;
+  }
+  #listaTareas {
+    margin-left: 15px;
+  }
+}
+@media only screen and (min-width: 601px) and (max-width: 1200px) {
+  body section {
+    left: 10%;
+    right: 10%;
+  }
+  #inputTareas {
+    width: 320px;
+  }
+  #clearButton {
+    color: #EDEADE;
+    background-color: #131313;
+    padding: 4px 8px;
+    margin-left: 0px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
