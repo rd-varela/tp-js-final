@@ -144,6 +144,14 @@ button {
   transition: opacity 1s ease-out;
 }
 
+#userInputNoticeAI {
+  transition: opacity 1s ease-in-out;
+}
+
+.error {
+  color: rgb(212, 0, 0);
+}
+
 .darkModeBtnDefault {
   height: 40px;
   width: 40px;

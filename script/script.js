@@ -3,6 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const API_KEY = 'AIzaSyCm6EZCxuOKLnO_2WBwED9n9qMwA8qRr1Y';
 const genAI = new GoogleGenerativeAI(API_KEY);
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+
 let inputTareas = document.getElementById('inputTareas');
 let inputAI = document.getElementById('inputAI');
 let listaTareas = document.getElementById('listaTareas');
@@ -56,23 +57,31 @@ cargarTareas();
 
 inputTareas.addEventListener('input', function() {
     let textLength = inputTareas.value.length;
-    if (textLength >= 3) {
+    if (textLength >= 3 && textLength <= 50) {
         UINotice.style.opacity = 1
+        UINotice.classList.remove('error');
         UINotice.textContent = `${textLength}`;
-    } else {
+    } else if (textLength > 50) {
+        UINotice.style.opacity = 1
+        UINotice.classList.add('error');
+        UINotice.textContent = `${textLength}`;
+    }
+    else {
         UINotice.textContent = '';
+        UINotice.classList.remove('error');
     }
 });
 
 function agregarTarea() {
     let textoTareas = inputTareas.value.trim();
+    UINotice.classList.remove('error');
     try {
         if (textoTareas === '') {
             throw new Error('la tarea no puede estar vacía!');
         }
 
-        if (textoTareas.length > 32) {
-            throw new Error('maximo 32 caracteres!');
+        if (textoTareas.length > 50) {
+            throw new Error('maximo 50 caracteres!');
         }
 
         let li = document.createElement('li');
@@ -93,6 +102,7 @@ function agregarTarea() {
 
         guardarTareas();
     } catch (error) {
+        UINotice.classList.add('error');
         UINotice.textContent = error.message;
         UINotice.style.opacity = 1;
         fadeOutNotice();
@@ -118,8 +128,13 @@ async function agregarTareaAI(){
     listaTareas.innerHTML = '';
     localStorage.removeItem('tareas');
     let textoInputAI = inputAI.value.trim();
-    const prompt = "return in a json valid array format a to-do list for" + textoInputAI + " in the same language as exposed, only the array so that I can fetch the response into json, it should include only the task with the object name tarea followed by what to do, maximum characters per tarea are 32"
+    const prompt = "return in a json valid array format a to-do list for" + textoInputAI + " in the same language as exposed, only the array so that I can fetch the response into json, it should include only the task with the object name tarea followed by what to do, maximum characters per tarea are 50. if the prompt is nonsensical, return the prompt"
+
+    UINoticeAI.classList.remove('error');
+    UINoticeAI.textContent = 'pensando...';
+    fadeOutNoticeAI()
     playSound(sfxAdd);
+
     const result = await model.generateContent(prompt);
     const responseTextDirty = result.response.candidates[0].content.parts[0].text;
     const cleanedResponse = responseTextDirty
@@ -141,13 +156,23 @@ async function agregarTareaAI(){
             inputAI.value = '';
         });
 
+        UINoticeAI.style.opacity = 1;
+        UINoticeAI.textContent = '(esto borrara todas las tareas ingresadas)';
         guardarTareas();
     } catch (error) {
+        UINoticeAI.style.opacity = 1;
+        UINoticeAI.classList.add('error');
         UINoticeAI.textContent = 'ocurrio un error, intenta nuevamente';
     }
 }
 
 window.agregarTareaAI = agregarTareaAI
+
+function fadeOutNoticeAI() {
+    setTimeout(function() {
+        UINoticeAI.style.opacity = 0;
+    }, 1000);
+}
 
 inputAI.addEventListener("keydown", function(event) {
     if (event.keyCode === 13) {
