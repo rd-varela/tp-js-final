@@ -51,6 +51,10 @@ body{
     }
 }
 
+#listaTareasDiv{
+    margin-top: 50px;
+}
+
 #listaTareas{
     list-style-type: square;
     margin-top: 40px;
@@ -85,6 +89,18 @@ body{
     outline: none;
 }
 
+#inputAI{
+    margin-top: 15px;
+    width: 400px;
+    height: 25px;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    border-bottom: #131313 1px solid;
+}
+:focus{
+    outline: none;
+}
+
 .completado{
     color: rgba(80, 80, 80, 0.523);
     text-decoration: line-through;
@@ -99,16 +115,25 @@ button{
 }
 
 #clearButton{
+    display: flex;
+    width: 120px;
+    height: 30px;
     color: #EDEADE;
     background-color: #131313;
     padding: 4px 8px;
-    margin-left: 20px;
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
     span{
         color: #EDEADE;
     }
     &:active{
-        padding: 3.5px 7.5px;
-        font-size: 17.5px;
+        font-size: 16px;
+        width: 118px;
+        height: 28px;
+        margin-top: 31px;
+        margin-bottom: 1px;
     }
     &:hover{
         cursor: pointer;
@@ -177,13 +202,13 @@ button{
             button{
                 color: #EDEADE;
             }
-            #clearButton{
-                color: #131313;
-                background-color: #EDEADE;
-                span{
-                    color: #131313;
-                }
-            }
+        }
+    }
+    #clearButton{
+        color: #131313;
+        background-color: #EDEADE;
+        span{
+            color: #131313;
         }
     }
     .darkModeBtnDefault{
@@ -192,7 +217,7 @@ button{
     .completado{
         color: #706e68;
     }
-    #inputTareas{
+    #inputTareas, #inputAI{
         border-bottom: #EDEADE 1px solid;
     }
     #muteBtn{
@@ -218,17 +243,8 @@ button{
         width: 250px;
     }
 
-    #clearButton{
-        color: #EDEADE;
-        background-color: #131313;
-        padding: 4px 8px;
-        margin-bottom: 20px;
-        margin-left: 5px;
-        span{
-            display: inline-block;
-            visibility: hidden;
-            width: 0px;
-        }
+    #inputAI{
+        width: 320px;
     }
 
     #listaTareas{
@@ -237,6 +253,14 @@ button{
 
     #userInputNotice{
         margin-top: 0px;
+    }
+
+    #clearButton{
+        margin-top: 5px;
+        &:active{
+            margin-top: 6px;
+            margin-bottom: 1px;
+        }
     }
 }
 
@@ -251,12 +275,5 @@ button{
 
     #inputTareas{
         width: 320px;
-    }
-
-    #clearButton{
-        color: #EDEADE;
-        background-color: #131313;
-        padding: 4px 8px;
-        margin-left: 0px;
     }
 }

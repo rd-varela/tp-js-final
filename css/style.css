@@ -48,6 +48,10 @@ body section div .subText {
   margin-top: 5px;
 }
 
+#listaTareasDiv {
+  margin-top: 50px;
+}
+
 #listaTareas {
   list-style-type: square;
   margin-top: 40px;
@@ -80,6 +84,19 @@ body section div .subText {
   outline: none;
 }
 
+#inputAI {
+  margin-top: 15px;
+  width: 400px;
+  height: 25px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  border-bottom: #131313 1px solid;
+}
+
+:focus {
+  outline: none;
+}
+
 .completado {
   color: rgba(80, 80, 80, 0.523);
   text-decoration: line-through;
@@ -94,17 +111,26 @@ button {
 }
 
 #clearButton {
+  display: flex;
+  width: 120px;
+  height: 30px;
   color: #EDEADE;
   background-color: #131313;
   padding: 4px 8px;
-  margin-left: 20px;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 #clearButton span {
   color: #EDEADE;
 }
 #clearButton:active {
-  padding: 3.5px 7.5px;
-  font-size: 17.5px;
+  font-size: 16px;
+  width: 118px;
+  height: 28px;
+  margin-top: 31px;
+  margin-bottom: 1px;
 }
 #clearButton:hover {
   cursor: pointer;
@@ -167,11 +193,11 @@ button {
 .darkMode section div button {
   color: #EDEADE;
 }
-.darkMode section div #clearButton {
+.darkMode #clearButton {
   color: #131313;
   background-color: #EDEADE;
 }
-.darkMode section div #clearButton span {
+.darkMode #clearButton span {
   color: #131313;
 }
 .darkMode .darkModeBtnDefault {
@@ -180,7 +206,7 @@ button {
 .darkMode .completado {
   color: #706e68;
 }
-.darkMode #inputTareas {
+.darkMode #inputTareas, .darkMode #inputAI {
   border-bottom: #EDEADE 1px solid;
 }
 .darkMode #muteBtn {
@@ -201,23 +227,21 @@ button {
   #inputTareas {
     width: 250px;
   }
-  #clearButton {
-    color: #EDEADE;
-    background-color: #131313;
-    padding: 4px 8px;
-    margin-bottom: 20px;
-    margin-left: 5px;
-  }
-  #clearButton span {
-    display: inline-block;
-    visibility: hidden;
-    width: 0px;
+  #inputAI {
+    width: 320px;
   }
   #listaTareas {
     margin-left: 15px;
   }
   #userInputNotice {
     margin-top: 0px;
+  }
+  #clearButton {
+    margin-top: 5px;
+  }
+  #clearButton:active {
+    margin-top: 6px;
+    margin-bottom: 1px;
   }
 }
 @media only screen and (min-width: 601px) and (max-width: 1200px) {
@@ -227,12 +251,6 @@ button {
   }
   #inputTareas {
     width: 320px;
-  }
-  #clearButton {
-    color: #EDEADE;
-    background-color: #131313;
-    padding: 4px 8px;
-    margin-left: 0px;
   }
 }
 

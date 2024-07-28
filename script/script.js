@@ -1,12 +1,19 @@
 import Sortable from './node_modules/sortablejs/modular/sortable.complete.esm.js';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const API_KEY = 'AIzaSyCm6EZCxuOKLnO_2WBwED9n9qMwA8qRr1Y';
+const genAI = new GoogleGenerativeAI(API_KEY);
+const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 let inputTareas = document.getElementById('inputTareas');
+let inputAI = document.getElementById('inputAI');
 let listaTareas = document.getElementById('listaTareas');
 let UINotice = document.getElementById('userInputNotice');
+let UINoticeAI = document.getElementById('userInputNoticeAI');
 let sfxAdd = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Add.mp3?raw=true");
 let sfxDel = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Substract.mp3?raw=true")
 let sfxComp = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Tick.mp3?raw=true")
 let sfxClear = new Audio("https://github.com/rd-varela/tp-js-final/blob/main/sfx/Clear.mp3?raw=true")
 let isMuted = false;
+
 
 let sortable = new Sortable(listaTareas, {
 	animation: 350,
@@ -64,8 +71,8 @@ function agregarTarea() {
             throw new Error('la tarea no puede estar vacía!');
         }
 
-        if (textoTareas.length > 34) {
-            throw new Error('maximo 34 caracteres!');
+        if (textoTareas.length > 32) {
+            throw new Error('maximo 32 caracteres!');
         }
 
         let li = document.createElement('li');
@@ -98,11 +105,53 @@ function fadeOutNotice() {
     }, 2500);
 }
 
-window.agregarTarea = agregarTarea
-
 inputTareas.addEventListener("keydown", function(event) {
     if (event.keyCode === 13) {
       agregarTarea();
+    }
+  });
+
+
+window.agregarTarea = agregarTarea
+
+async function agregarTareaAI(){
+    listaTareas.innerHTML = '';
+    localStorage.removeItem('tareas');
+    let textoInputAI = inputAI.value.trim();
+    const prompt = "return in a json valid array format a to-do list for" + textoInputAI + " in the same language as exposed, only the array so that I can fetch the response into json, it should include only the task with the object name tarea followed by what to do, maximum characters per tarea are 32"
+    playSound(sfxAdd);
+    const result = await model.generateContent(prompt);
+    const responseTextDirty = result.response.candidates[0].content.parts[0].text;
+    const cleanedResponse = responseTextDirty
+        .replace(/^[^{\[]+/, '')
+        .replace(/[^}\]]+$/, '');
+
+    try {
+        const responseArray = JSON.parse(cleanedResponse);
+        responseArray.forEach(obj => {
+            let li = document.createElement('li');
+            li.textContent = obj.tarea;
+            listaTareas.appendChild(li);
+
+            li.addEventListener('click', completarTarea);
+            let deleteBtn = document.createElement('button');
+            deleteBtn.textContent = '-';
+            deleteBtn.addEventListener('click', borrarTarea);
+            li.appendChild(deleteBtn);
+            inputAI.value = '';
+        });
+
+        guardarTareas();
+    } catch (error) {
+        UINoticeAI.textContent = 'ocurrio un error, intenta nuevamente';
+    }
+}
+
+window.agregarTareaAI = agregarTareaAI
+
+inputAI.addEventListener("keydown", function(event) {
+    if (event.keyCode === 13) {
+      agregarTareaAI();
     }
   });
 

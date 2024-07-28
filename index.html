@@ -14,20 +14,33 @@
     </header>
     <section>
         <div>
-            <p>Organizate agregando, tildando o quitando tareas</p>
+            <p>Organiza tus quehaceres!</p>
             <input type="text" id="inputTareas" placeholder="Ingresa una tarea">
             <button onclick="agregarTarea()">+</button>
-            <button id="clearButton">[clear<span> all</span>]</button>
+            <p id="userInputNotice"></p>
         </div>
-        <p id="userInputNotice"></p>
         <div>
-            <p>Lista de tareas:</p>
+            <p class="subText">o bien...</p>
+            <input type="text" id="inputAI" placeholder="Ingresa una actividad (ej, lavar la ropa)">
+            <button onclick="agregarTareaAI()">+</button>
+            <p class="subText" id="userInputNoticeAI">(ingresar una actividad borrara todas las tareas ingresadas)</p>
+        </div>
+        <button id="clearButton">[clear all]</button>
+        <div id="listaTareasDiv">
+            <p>Lista de tareas</p>
             <p class="subText">(arrastra para reordenar)</p>
             <ul id="listaTareas"></ul>
         </div>
 
     </section>
 
+    <script type="importmap">
+        {
+          "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai"
+          }
+        }
+    </script>
     <script src="script/script.js" type="module"></script>
 
 </body>
