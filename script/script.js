@@ -85,6 +85,7 @@ function agregarTarea() {
         }
 
         let li = document.createElement('li');
+        li.classList.add('animate');
         li.textContent = textoTareas;
         listaTareas.appendChild(li);
         inputTareas.value = '';
@@ -99,6 +100,9 @@ function agregarTarea() {
         UINotice.textContent = 'agregado!';
         UINotice.style.opacity = 1;
         fadeOutNotice();
+        li.addEventListener('animationend', () => {
+            li.classList.remove('animate');
+        });
 
         guardarTareas();
     } catch (error) {
@@ -143,17 +147,23 @@ async function agregarTareaAI(){
 
     try {
         const responseArray = JSON.parse(cleanedResponse);
-        responseArray.forEach(obj => {
-            let li = document.createElement('li');
-            li.textContent = obj.tarea;
-            listaTareas.appendChild(li);
+        responseArray.forEach((obj, index) => {
+            setTimeout(() => {
+                let li = document.createElement('li');
+                li.textContent = obj.tarea;
+                li.classList.add('animate');
+                listaTareas.appendChild(li);
+                li.addEventListener('click', completarTarea);
+                let deleteBtn = document.createElement('button');
+                deleteBtn.textContent = '-';
+                deleteBtn.addEventListener('click', borrarTarea);
+                li.appendChild(deleteBtn);
+                inputAI.value = '';
 
-            li.addEventListener('click', completarTarea);
-            let deleteBtn = document.createElement('button');
-            deleteBtn.textContent = '-';
-            deleteBtn.addEventListener('click', borrarTarea);
-            li.appendChild(deleteBtn);
-            inputAI.value = '';
+                li.addEventListener('animationend', () => {
+                    li.classList.remove('animate');
+                });
+            }, index * 300);
         });
 
         UINoticeAI.style.opacity = 1;
