@@ -133,19 +133,24 @@ async function agregarTareaAI(){
     localStorage.removeItem('tareas');
     let textoInputAI = inputAI.value.trim();
     const prompt = "return in a json valid array format a to-do list for" + textoInputAI + " in the same language as exposed, only the array so that I can fetch the response into json, it should include only the task with the object name tarea followed by what to do, maximum characters per tarea are 50. if the prompt is nonsensical, return the prompt"
-
+    
+    UINoticeAI.style.opacity = 1;
     UINoticeAI.classList.remove('error');
     UINoticeAI.textContent = 'pensando...';
     fadeOutNoticeAI()
     playSound(sfxAdd);
 
-    const result = await model.generateContent(prompt);
-    const responseTextDirty = result.response.candidates[0].content.parts[0].text;
-    const cleanedResponse = responseTextDirty
+    try {
+
+        if (textoInputAI === '') {
+            throw new Error;
+        }
+
+        const result = await model.generateContent(prompt);
+        const responseTextDirty = result.response.candidates[0].content.parts[0].text;
+        const cleanedResponse = responseTextDirty
         .replace(/^[^{\[]+/, '')
         .replace(/[^}\]]+$/, '');
-
-    try {
         const responseArray = JSON.parse(cleanedResponse);
         responseArray.forEach((obj, index) => {
             setTimeout(() => {
